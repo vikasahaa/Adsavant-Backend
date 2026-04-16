@@ -18,20 +18,22 @@ Open your terminal (PowerShell or CMD) in this folder and run the following comm
 ### 1. Create a Virtual Environment
 
 ```powershell
-python -m venv .venv
+python -m venv .venv --without-pip
 ```
 
 ## 2. Activate the Environment
 
 ### Windows
 ```powershell
-.venv\Scripts\activate
+.\.venv\Scripts\activate
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py
+Remove-Item get-pip.py
 ```
 
 ### 3. Install Dependencies
 
 ```powershell
-pip install numpy==1.26.4 scikit-learn==1.6.1
 pip install -r requirements.txt
 ```
 ### 4. Run the Server
