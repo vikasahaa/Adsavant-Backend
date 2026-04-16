@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdSavant | Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+
+    <div class="app-layout">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/icons/adslogo.jpeg" alt="AdSavant Logo" class="brand-icon">
+                <span class="brand-name">AdSavant</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-target="view-predict">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                    Predict Engagement
+                </button>
+                <button class="nav-item" data-target="view-history">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    Analysis History
+                </button>
+                <button class="nav-item" data-target="view-insights">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                    Visual Insights
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="avatar">V</div>
+                    <span>SME Account</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-area">
+            <div class="views-container">
+
+                <div id="view-predict" class="dash-view active-view">
+                    <div class="view-header">
+                        <h1>Predict Instagram Engagement</h1>
+                        <p class="view-subtitle">Upload your instagram post and caption to analyze the potential engagement before posting</p>
+                    </div>
+
+                    <div class="card form-card-wide">
+                        <form id="predictionForm">
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label>1. Brand Category</label>
+                                    <select id="brand_category" required>
+                                        <option value="" disabled selected>Choose category</option>
+                                        <option value="casual wear">Casual Wear</option>
+                                        <option value="sports wear">Sport Wear</option>
+                                        <option value="ethnic wear">Ethnic Wear</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label>2. Follower Count</label>
+                                    <input type="number" id="follower_count" placeholder="e.g., 25000" min="1" required>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <div class="upload-zone" id="drop-zone">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                                    <p>Drag and drop image here, or <strong>Upload PNG, SVG or JPEG</strong></p>
+                                    <input type="file" id="file-input" class="hidden-input" accept="image/*" required>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label>4. Enter Caption</label>
+                                <textarea id="caption_input" placeholder="Write your caption here..." rows="4" required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-predict">Predict Engagement</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="view-history" class="dash-view">
+                    <div class="view-header">
+                        <h1>Analysis History</h1>
+                        <p class="view-subtitle">Review your past predictions and actual performance data.</p>
+                    </div>
+
+                    <div class="card table-card">
+                        <div class="table-responsive">
+                            <table class="history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Poster Thumbnail</th>
+                                        <th>Engagement Rate</th>
+                                        <th>Classification</th>
+                                        <th>Confidence Indication</th>
+                                        <th style="width: 50px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="history-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-insights" class="dash-view">
+                    <div class="view-header">
+                        <h1>Brand Visual Insights</h1>
+                        <p class="view-subtitle">Identify the creative DNA and visual patterns driving your highest engagement.</p>
+                    </div>
+
+                    <div class="insights-summary-grid mb-4">
+                        <div class="card summary-card">
+                            <span class="summary-label">Total Analyzed</span>
+                            <span class="summary-value" id="total-analysed-count">0</span>
+                        </div>
+                        <div class="card summary-card">
+                            <span class="summary-label">Avg. Score</span>
+                            <span class="summary-value text-green" id="top-style-er">--%</span>
+                        </div>
+                        <div class="card summary-card">
+                            <span class="summary-label">Top Style</span>
+                            <span class="summary-value" id="top-style-name">N/A</span>
+                        </div>
+                    </div>
+
+                    <div class="insights-main-grid">
+                        <div class="insights-column">
+                            <div class="card h-100">
+                                <div class="card-header-flex mb-3">
+                                    <h4>Extracted Visual Features</h4>
+                                </div>
+                                <div class="visual-features-list">
+                                    <div class="bar-block mb-4">
+                                        <div class="label-with-icon"><span>Lighting Quality</span><span class="font-bold" id="insight-val-lighting">0%</span></div>
+                                        <div class="track"><div class="fill fill-navy" id="insight-bar-lighting" style="width: 0%"></div></div>
+                                    </div>
+                                    <div class="bar-block mb-4">
+                                        <div class="label-with-icon"><span>Visual Quality</span><span class="font-bold" id="insight-val-quality">0%</span></div>
+                                        <div class="track"><div class="fill fill-navy" id="insight-bar-quality" style="width: 0%"></div></div>
+                                    </div>
+                                    <div class="bar-block mb-4">
+                                        <div class="label-with-icon"><span>Colour Contrast</span><span class="font-bold" id="insight-val-contrast">0%</span></div>
+                                        <div class="track"><div class="fill fill-navy" id="insight-bar-contrast" style="width: 0%"></div></div>
+                                    </div>
+                                    <div class="bar-block">
+                                        <div class="label-with-icon"><span>Subject Focus</span><span class="font-bold" id="insight-val-focus">0%</span></div>
+                                        <div class="track"><div class="fill fill-navy" id="insight-bar-focus" style="width: 0%"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="insights-column">
+                            <div class="card h-100">
+                                <div class="card-header-flex mb-3">
+                                    <h4>Color Dominance</h4>
+                                </div>
+                                <div class="color-palette-container" id="dominant-color-container">
+                                    <p style="color: #64748b; font-size: 0.9rem;">Analyze a post to see dominant colors.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-results" class="dash-view">
+
+                    <button class="btn-back-clean" id="btn-back-predict">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        Back
+                    </button>
+
+                    <div class="figma-results-frame">
+                        <div class="results-dark-nav">
+                            <div class="nav-left"><svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 22H22L12 2Z"/></svg><span>AdSavant</span></div>
+                            <div class="nav-center">Prediction Insights</div>
+                            <div class="nav-right"></div>
+                        </div>
+
+                        <div class="results-inner-content">
+                            <div class="left-preview-column">
+                                <div class="white-card">
+                                    <div class="card-header-flex"><h4>Post Preview</h4></div>
+                                    <img id="result-image-preview" src="" alt="Post Preview" class="preview-image">
+                                    <p class="preview-caption"><strong>Caption :</strong> <span id="result-caption-text"></span></p>
+                                    <button class="btn-outline-wide">Export Insights</button>
+                                </div>
+                            </div>
+
+                            <div class="right-metrics-column">
+                                <div class="metric-group-wrapper">
+                                    <span class="group-label">Overall Prediction</span>
+                                    <div class="top-metrics-grid">
+                                        <div class="white-card dial-container">
+                                            <h4>Engagement Rate</h4>
+                                            <div class="circular-progress">
+                                                <div class="circular-progress-inner">
+                                                    <span class="score-text">--%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="white-card bars-container">
+                                            <div class="bar-block">
+                                                <div class="label-with-icon">
+                                                    <span>Engagement Classification</span>
+                                                    <span class="tooltip-wrapper">
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                                                        <div class="tooltip-bubble tooltip-top">Comparison to typical performance.</div>
+                                                    </span>
+                                                </div>
+                                                <div class="track"><div id="classification-fill" class="fill fill-green" style="width: 0%"></div></div>
+                                            </div>
+                                            <div class="bar-block">
+                                                <div class="label-with-icon">
+                                                    <span>Prediction Confidence Indicator</span>
+                                                    <span class="tooltip-wrapper">
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                                                        <div class="tooltip-bubble tooltip-bottom">Model certainty based on data similarity.</div>
+                                                    </span>
+                                                </div>
+                                                <div class="track"><div id="confidence-fill" class="fill fill-yellow" style="width: 0%"></div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="metric-group-wrapper mt-4">
+                                    <div class="group-label-with-icon">
+                                        <span class="group-label">Extracted Visual Features</span>
+                                    </div>
+                                    <div class="white-card visual-features-grid">
+                                        <div class="bar-block">
+                                            <div class="label-clean">Lighting Quality <span id="val-lighting" style="float:right">0%</span></div>
+                                            <div class="track"><div id="bar-lighting" class="fill fill-navy" style="width: 0%"></div></div>
+                                        </div>
+                                        <div class="bar-block">
+                                            <div class="label-clean">Visual Quality <span id="val-quality" style="float:right">0%</span></div>
+                                            <div class="track"><div id="bar-quality" class="fill fill-navy" style="width: 0%"></div></div>
+                                        </div>
+                                        <div class="bar-block">
+                                            <div class="label-clean">Colour Contrast <span id="val-contrast" style="float:right">0%</span></div>
+                                            <div class="track"><div id="bar-contrast" class="fill fill-navy" style="width: 0%"></div></div>
+                                        </div>
+                                        <div class="bar-block">
+                                            <div class="label-clean">Subject Focus <span id="val-focus" style="float:right">0%</span></div>
+                                            <div class="track"><div id="bar-focus" class="fill fill-navy" style="width: 0%"></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-card">
+            <div class="loading-logo"><img src="assets/icons/adslogo.jpeg" alt="AdSavant Logo" class="brand-icon"><span class="brand-name">AdSavant</span></div>
+            <div class="progress-bar-container"><div class="progress-bar-fill"></div></div>
+            <p class="loading-text">Predicting Engagement...</p>
+        </div>
+    </div>
+
+    <script src="scripts/dashboard.js"></script>
+</body>
+</html>

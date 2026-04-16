@@ -5,6 +5,7 @@ Serves the ML engagement prediction model as a REST API.
 
 import logging
 from contextlib import asynccontextmanager
+from fastapi.staticfiles import StaticFiles
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -12,6 +13,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.routes import router as api_router
 from app.core.config import settings
 from app.ml.model_service import ModelService
+
+
 
 logger = logging.getLogger(__name__)
 
@@ -40,10 +43,11 @@ app = FastAPI(
 )
 
 # CORS — allow Streamlit frontend
+# CORS — allow Streamlit frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS,
-    allow_credentials=True,
+    allow_origins=["*"],  # <--- Change this line
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -55,3 +59,7 @@ app.include_router(api_router, prefix="/api/v1")
 async def health_check():
     """Health check endpoint for monitoring."""
     return {"status": "healthy", "model_loaded": hasattr(app.state, "model_service")}
+
+# 2. Static Files (Frontend) go LAST
+# html=True tells FastAPI to automatically serve index.html when you visit the root URL "/"
+app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")

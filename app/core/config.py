@@ -25,7 +25,7 @@ class Settings(BaseSettings):
         "http://localhost:8501",  # Streamlit default
         "http://127.0.0.1:8501",
         "http://localhost:3000",
-        "http://localhost:63342"
+        "http://localhost:63343"
     ]
 
     # ML Model

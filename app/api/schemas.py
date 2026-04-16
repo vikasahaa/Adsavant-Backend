@@ -31,6 +31,35 @@ class ConfidenceLevel(str, Enum):
     MODERATE = "Moderate"
     LOW = "Low"
 
+# class VisualMetrics(BaseModel):
+#     """Derived mathematical visual indicators (0-100 scale)."""
+#     lighting_quality: float = Field(..., description="Average pixel intensity")
+#     colour_contrast: float = Field(..., description="Standard deviation of pixel values")
+#     subject_focus: float = Field(..., description="Laplacian variance estimate")
+#     visual_quality_composite: float = Field(..., description="Average of the three metrics")
+#     dominant_colors: list[ColorInfo]
+
+
+
+# Add this above VisualMetrics
+class ColorInfo(BaseModel):
+    hex_code: str = Field(..., description="Hex color code (e.g., #FFFFFF)")
+    percentage: float = Field(..., description="Percentage of this color in the image")
+
+# Update your existing VisualMetrics class
+class VisualMetrics(BaseModel):
+    """Derived mathematical visual indicators (0-100 scale)."""
+    lighting_quality: float
+    colour_contrast: float
+    subject_focus: float
+    visual_quality_composite: float
+    dominant_colors: list[ColorInfo] = Field(default_factory=list) # <--- ADD THIS LINE
+
+class VisualMetricsResponse(BaseModel):
+    """Response schema for the visual insights endpoint."""
+    metrics: VisualMetrics
+    status: str = "success"
+    note: str = "Derived via mathematical image processing (OpenCV)."
 
 class PredictionRequest(BaseModel):
     """Schema for engagement prediction input (JSON fields alongside file upload)."""

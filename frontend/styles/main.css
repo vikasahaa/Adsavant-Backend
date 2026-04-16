@@ -1,0 +1,386 @@
+/* --- Root Variables: AdSavant Design System --- */
+:root {
+    --bg-main: #F8FAFC; 
+    --card-white: #FFFFFF;
+
+    --text-primary: #0F172A;
+    --text-secondary: #64748B;
+
+    --form-input-bg: #EAEBF5;
+
+    --btn-primary: #1E3A8A;
+    --btn-primary-hover: #162d6b;
+    --btn-text-active: #FFFFFF;
+
+    --google-btn-border: #E2E8F0;
+    --google-btn-text: #000000;
+
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+
+    --shadow-main: 0 20px 40px rgba(0, 0, 0, 0.08);
+
+    /*Resullts confidence colors*/
+    --success-green: #22c55e;
+    --confidence-yellow: #cbd5e1; /* Using a muted yellow/green based on your screenshot */
+    --confidence-yellow-fill: #bada55;
+    --feature-dark: #0f172a;
+}
+
+/* --- Reset --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* --- Wrapper --- */
+.page-wrapper {
+    width: 100%;
+    padding: 3rem;
+}
+
+/* --- Layout --- */
+.login-container {
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+    gap: 2.5rem;
+    align-items: stretch; 
+}
+
+/* --- Card Base --- */
+.card {
+    flex: 1;
+    background: var(--card-white);
+    border-radius: 20px;
+    box-shadow: var(--shadow-main);
+    overflow: hidden;
+}
+
+/* =========================================
+   LEFT PANEL (MARKETING)
+========================================= */
+.info-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.image-wrapper {
+    position: relative;
+    padding: 1.5rem 1.5rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-image {
+    width: 100%;
+    height: auto; 
+    display: block;
+    border-radius: 12px;
+    object-fit: contain; 
+}
+
+.overlay-logo {
+    position: absolute;
+    top: 2.5rem;
+    right: 2.5rem;
+    width: 32px;
+    opacity: 0.9;
+}
+
+.info-content {
+    padding: 2rem;
+    text-align: center;
+}
+
+.brand-identifier {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.brand-icon {
+    width: 24px;
+}
+
+.brand-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.info-card h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+}
+
+.info-card p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    max-width: 85%;
+    margin: 0 auto;
+}
+
+/* RIGHT PANEL (FORM)*/
+.form-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    padding: 2rem 0;
+}
+
+.form-content-wrapper {
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+}
+
+.form-header {
+    margin-bottom: 2rem;
+}
+
+.header-icon {
+    width: 32px;
+    margin-bottom: 0.5rem;
+}
+
+.form-card h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.auth-toggle {
+    background: var(--form-input-bg);
+    border-radius: 50px;
+    padding: 4px;
+    display: inline-flex;
+    gap: 4px;
+    margin-bottom: 1.5rem;
+}
+
+.toggle-btn {
+    border: none;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    background: transparent;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.toggle-btn.active {
+    background: var(--btn-primary);
+    color: white;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid var(--google-btn-border);
+    margin-bottom: 1.5rem;
+}
+
+.input-group {
+    margin-bottom: 1.25rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--form-input-bg);
+    font-family: var(--font-family);
+}
+
+.input-group input::placeholder {
+    color: var(--text-secondary);
+}
+
+.btn-signin {
+    width: 100%;
+    padding: 0.9rem;
+    border-radius: 8px;
+    border: none;
+    background: var(--btn-primary);
+    color: var(--btn-text-active);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-signin:hover {
+    background: var(--btn-primary-hover);
+    transform: translateY(-1px);
+}
+
+.or-separator {
+    margin: 1.5rem 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.btn-google {
+    width: 100%;
+    padding: 0.9rem;
+    border-radius: 8px;
+    border: 1px solid var(--google-btn-border);
+    background: var(--card-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-google:hover {
+    background: #F1F5F9;
+}
+
+.google-icon {
+    width: 18px;
+}
+
+.form-footer {
+    margin-top: 2rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.form-footer a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* =========================================
+   STUDY POINT: GLOBAL VIEW TOGGLING (MOVED OUT OF MEDIA QUERY)
+   These rules must be global so they apply to desktop screens. 
+   By default, .auth-view is hidden. Only the one with .active-view is shown.
+========================================= */
+.auth-view {
+    display: none;
+    width: 100%;
+}
+
+.auth-view.active-view {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    color: var(--text-primary);
+}
+
+/* --- Input Grid --- */
+.input-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.input-row .input-group {
+    flex: 1;
+}
+
+/* =========================================
+   STUDY POINT: GLOBAL PASSWORD STRENGTH UI 
+   Moved out of the media query so the visual logic applies everywhere.
+========================================= */
+.password-strength-container {
+    text-align: left;
+    margin: 0.5rem 0 1.5rem;
+    font-size: 0.8rem;
+}
+
+.strength-header {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+#strength-text {
+    font-weight: 600;
+}
+
+.strength-bar {
+    height: 4px;
+    background: var(--google-btn-border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.strength-fill {
+    height: 100%;
+    width: 0%;
+    transition: all 0.3s ease;
+}
+
+.password-rules {
+    list-style: none;
+    color: var(--text-secondary);
+}
+
+.password-rules li {
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s ease;
+}
+
+.password-rules li::before {
+    content: '•';
+    font-size: 1.2rem;
+}
+
+/* Dynamic State Classes for JS */
+.rule-pass { color: #10B981; }
+.fill-weak { width: 33%; background-color: #EF4444; }
+.fill-medium { width: 66%; background-color: #F59E0B; }
+.fill-strong { width: 100%; background-color: #10B981; }
+.text-weak { color: #EF4444; }
+.text-medium { color: #F59E0B; }
+.text-strong { color: #10B981; }
+
+
+/* =========================================
+   STUDY POINT: RESPONSIVE OVERRIDES
+   The media query should ONLY contain structural overrides for small screens. 
+   We only change the flex-direction here; we do not put layout logic here.
+========================================= */
+@media (max-width: 900px) {
+    .login-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 500px;
+    }
+}
